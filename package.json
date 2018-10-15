@@ -1,0 +1,17 @@
+{
+  "name": "tf-api",
+  "version": "0.0.1",
+  "description": "API for Transparent Finance table database",
+  "main": "server.js",
+  "dependencies": {
+    "azure-storage": "^2.10.1",
+    "hapi": "^17.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Timothy Tavarez",
+  "license": "MIT"
+}
