@@ -2,14 +2,18 @@
 
 const Hapi = require('hapi');
 const azure = require('azure-storage');
-const config = require('./config/tableconfig');
-const hapiConfig = require('./config/hapiconfig');
 
-const tableService = azure.createTableService(config.accountName, config.key, config.endpoint);
+const tableService = azure.createTableService(process.env.CUSTOMCONNSTR_cosmosTables);
+const config = {
+    port: process.env.PORT || 3000,
+    host: process.env.HOST || "localhost",
+    router: {
+        isCaseSensitive: false,
+        stripTrailingSlash: true
+    }
+};
 
-const server = Hapi.server({
-    port: process.env.port || 3000
-});
+server.connection(config);
 
 const init = async () => {
     await server.start();
