@@ -9,7 +9,7 @@ const tableService = azure.createTableService(config.accountName, config.key, co
 
 const server = Hapi.server({
     port: process.env.port,
-    host: hapiConfig.host
+    host: process.env.host
 });
 
 const init = async () => {
