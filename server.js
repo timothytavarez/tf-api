@@ -22,29 +22,21 @@ server.route({
     path: '/states',
     handler: function (request, h) {
 
-        let stateData = [
-            {
-                name: 'Colorado',
-                totalIRSCollections: 56742235,
-                businessIncome: 2899495,
-                individualIncomeTaxWithheldFICA: 40798082,
-                individualIncomeTaxPaymentsSECA: 11470155
-            },
-    
-            {
-                name: 'California',
-                totalIRSCollections: 440475243,
-                businessIncome: 47274455,
-                individualIncomeTaxWithheldFICA: 288364748,
-                individualIncomeTaxPaymentsSECA: 90271160
-            }
-        ];
+        const query = new azure.TableQuery()
+        .where("PartitionKey eq 'irs-data'");
 
-        stateData = JSON.stringify(stateData);
-        
-        return h.response(stateData)
-            .type('application/json');
-        
+        let promise = new Promise((resolve, reject) => {
+            tableService.queryEntities('states', query, null, (err, result, response) => {
+                if (err) {
+                    reject(err)
+                }
+                resolve(result.entries);
+            })
+        }, reject => {
+                throw reject;
+        });
+
+        return promise;
     }
 });
 
