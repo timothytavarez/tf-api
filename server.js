@@ -8,8 +8,7 @@ const hapiConfig = require('./config/hapiconfig');
 const tableService = azure.createTableService(config.accountName, config.key, config.endpoint);
 
 const server = Hapi.server({
-    port: process.env.port,
-    host: process.env.host
+    port: process.env.port || 3000
 });
 
 const init = async () => {
