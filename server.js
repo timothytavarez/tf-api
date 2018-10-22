@@ -3,18 +3,17 @@
 const Hapi = require('hapi');
 const azure = require('azure-storage');
 const config = require('./config/tableconfig');
+const hapiConfig = require('./config/hapiconfig');
 
 const tableService = azure.createTableService(config.accountName, config.key, config.endpoint);
-const entGen = azure.TableUtilities.entityGenerator;
 
 const server = Hapi.server({
-    port: '3000',
-    host: 'localhost'
+    port: process.env.port,
+    host: hapiConfig.host
 });
 
 const init = async () => {
     await server.start();
-    console.log(`Server running on ${server.info.uri}`);
 };
 
 server.route({
@@ -39,7 +38,6 @@ server.route({
         return promise;
     }
 });
-
 
 process.on('UnhandledRejection', (err) => {
     console.error(err);
