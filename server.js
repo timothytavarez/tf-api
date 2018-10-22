@@ -12,8 +12,7 @@ const config = {
         stripTrailingSlash: true
     }
 };
-
-server.connection(config);
+const server = new Hapi.Server(config);
 
 const init = async () => {
     await server.start();
