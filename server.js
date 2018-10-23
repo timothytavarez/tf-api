@@ -23,6 +23,8 @@ server.route({
     path: '/states',
     handler: function (request, h) {
 
+        request.options({cors: true});
+
         const query = new azure.TableQuery()
         .where("PartitionKey eq 'irs-data'");
 
