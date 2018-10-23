@@ -7,6 +7,7 @@ const tableService = azure.createTableService(process.env.CUSTOMCONNSTR_cosmosTa
 const config = {
     port: process.env.PORT || 3000,
     host: process.env.HOST || "localhost",
+    routes: { cors: true },
     router: {
         isCaseSensitive: false,
         stripTrailingSlash: true
@@ -22,8 +23,6 @@ server.route({
     method: 'GET',
     path: '/states',
     handler: function (request, h) {
-
-        request.options({cors: true});
 
         const query = new azure.TableQuery()
         .where("PartitionKey eq 'irs-data'");
