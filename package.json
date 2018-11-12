@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "azure-storage": "^2.10.1",
+    "dotenv": "^6.1.0",
     "hapi": "^17.6.0"
   },
   "devDependencies": {},

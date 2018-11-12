@@ -2,7 +2,7 @@
 
 const Hapi = require('hapi');
 const azure = require('azure-storage');
-
+const dotEnv = require('dotenv').config();
 const tableService = azure.createTableService(process.env.CUSTOMCONNSTR_cosmosTables);
 const config = {
     port: process.env.PORT || 3000,
@@ -13,11 +13,21 @@ const config = {
         stripTrailingSlash: true
     }
 };
+
 const server = new Hapi.Server(config);
 
 const init = async () => {
     await server.start();
+    console.log('Server initialized');
 };
+
+server.route({
+    method: 'GET',
+    path: '/',
+    handler: function (request, h) {
+        return h.response('OK');
+    }
+})
 
 server.route({
     method: 'GET',
@@ -25,12 +35,13 @@ server.route({
     handler: function (request, h) {
 
         const query = new azure.TableQuery()
-        .where("PartitionKey eq 'irs-data'");
+            .where("PartitionKey eq 'irs-data'");
 
         let promise = new Promise((resolve, reject) => {
+            
             tableService.queryEntities('states', query, null, (err, result, response) => {
                 if (err) {
-                    reject(err)
+                    reject(err);
                 }
                 resolve(result.entries);
             })
