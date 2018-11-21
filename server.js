@@ -25,7 +25,7 @@ server.route({
     method: 'GET',
     path: '/',
     handler: function (request, h) {
-        return h.response('OK');
+        return 'OK';
     }
 })
 
@@ -59,3 +59,5 @@ process.on('UnhandledRejection', (err) => {
 });
 
 init();
+
+module.exports = server;
