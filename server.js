@@ -27,7 +27,7 @@ server.route({
     handler: function (request, h) {
         return 'OK';
     }
-})
+});
 
 server.route({
     method: 'GET',

@@ -10,11 +10,11 @@
   },
   "devDependencies": {
     "chai": "*",
-    "chai-as-promised": "^7.1.1",
+    "chai-as-promised": "*",
     "mocha": "*"
   },
   "scripts": {
-    "test": "mocha server-spec.js --recursive",
+    "test": "nodemon --exec mocha server-spec.js",
     "start": "node server.js"
   },
   "author": "Timothy Tavarez",
